@@ -27,9 +27,14 @@
                 text-align: left;
                 margin-left: 10px;
             }
-            h4 {
+            h3 {
                 text-align: left;
                 margin-left: 10px;
+            }
+            hr {
+                width: 80%;
+                margin: auto;
+                border: 1px solid #111;
             }
             .form-control {
                 font-size: 2em;
@@ -41,25 +46,28 @@
     </head>
     <body>
         <h1>Cloxer Timeclock Manager</h1>
-        <h4>Current Quarter:</h4>
+        <h3>If you clock in now, it will be logged as:</h3>
         <div><h1 id="current"></h1></div>
-        <h4>Next Quarter:</h4>
-        <div><h1 id="next"></h1></div>
-        <h4>Time Until Next Quarter:</h4>
+        <h3>You have this much time to clock in to this quarter:</h3>
         <div><h1 id="countdown"></h1></div>
+        <h3>Next Quarter:</h3>
+        <div><h1 id="next"></h1></div>
+        
+        <br />
+        <hr />
+        <br />
 
         <h2>When Do I Clock Out?</h2>
-        <label class="form-control" for="clockin">Clock In Time:</label>
-        <input class="form-control" type="time" id="clockin" name="clockin" /><br />
-        <label class="form-control" for="break">Break Time:</label>
+        <label class="form-control" for="clockin">When did you clock in:</label>
+        <input class="form-control" type="time" id="clockin" name="clockin" step="900" /><br />
+        <label class="form-control" for="break">How long are you taking lunch:</label>
         <select class="form-control" name="break" id="break">
-            <option value="0">No Break</option>
-            <option value="0.5">30 Minute Break</option>
-            <option value="1">1 Hour Break</option >
+            <option value="0">No Lunch</option>
+            <option value="0.5">30 Minute Lunch</option>
+            <option value="1">1 Hour Lunch</option >
         </select><br />
-        <label class="form-control" for="hours">Working Hours:</label>
+        <label class="form-control" for="hours">How many hours do you work today:</label>
         <input class="form-control" type="number" id="hours" name="hours" min=".25" step=".25" /><br />
-        <button class="form-control" id="calculate" onClick="calculate()">Calculate</button>
         <fieldset class="form-control">
             <legend>Clockout Time:</legend>
             <h1 id="result">--:--</h1>
@@ -105,9 +113,12 @@
                 let breakTime = parseFloat(document.getElementById("break").value);
 
                 now.setTime(now.getTime() + (hours * 3600000) + (breakTime * 3600000));
-                console.log(now);
 
                 document.getElementById("result").innerText = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+            }
+            formItems = document.getElementsByClassName("form-control")
+            for (let i = 0; i < formItems.length; i++) {
+                formItems[i].addEventListener("change", calculate);
             }
         </script>
     </footer>
