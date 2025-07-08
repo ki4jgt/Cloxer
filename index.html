@@ -46,9 +46,9 @@
     </head>
     <body>
         <h1>Cloxer Timeclock Manager</h1>
-        <h3>If you clock in now, it will be logged as:</h3>
+        <h3>If you clock in/out now, it will be logged as:</h3>
         <div><h1 id="current"></h1></div>
-        <h3>You have this much time to clock in to this quarter:</h3>
+        <h3>You have this much time to clock in/out to this quarter:</h3>
         <div><h1 id="countdown"></h1></div>
         <h3>Next Quarter:</h3>
         <div><h1 id="next"></h1></div>
@@ -91,18 +91,6 @@
             setInterval(updateClock, 500);
 
             function calculate(){
-                if (document.getElementById("clockin").value === "") {
-                    alert("Please enter a clock in time.");
-                    return;
-                }
-                if (document.getElementById("hours").value === "") {
-                    alert("Please enter the number of hours you will be working.");
-                    return;
-                }
-                if (!document.getElementById("break").value) {
-                    alert("Please select a break time.");
-                    return;
-                }
 
                 const now = new Date();
                 let clockin = document.getElementById("clockin").value;
